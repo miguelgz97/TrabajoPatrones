@@ -12,6 +12,10 @@ public class SistemaControl implements Observable{
     private SistemaIluminacion si;
     private SistemaFiltracion sf;
     private SistemaClimatizacion scl;
+    //Programas
+    GlobalComportamiento invernal;
+    GlobalComportamiento limpieza;
+    GlobalComportamiento estival;
     private static final String TIPO_ILUMINACION = "Lámpara LED";
     private static final float POTENCIA_ILUMINACION = 6000;
     private static final int LUMENES = 17500;
@@ -25,10 +29,7 @@ public class SistemaControl implements Observable{
     private int temperatura;
     private int tiempoDeFiltrado;
     
-    GlobalComportamiento invierno = new InvernalAuto();
-    invierno.
-    GlobalComportamiento limpieza = new LimpiezaAuto();
-    GlobalComportamiento verano = new VeranoAuto();
+
     
    
     public SistemaControl(Observer acuario){
@@ -38,6 +39,7 @@ public class SistemaControl implements Observable{
         this.si = new SistemaIluminacion(TIPO_ILUMINACION,POTENCIA_ILUMINACION,false,false,LUMENES);
         this.sf = new SistemaFiltracion(TIPO_FILTRACION,POTENCIA_FILTRACION,false,false,LH_FILTRACION);
         this.scl = new SistemaClimatizacion(TIPO_CLIMATIZACION,POTENCIA_CLIMATIZACION,false,false,VENTILADOR,TERMOMETRO);
+        
     }
     
     //PATRON OBSERVADOR
@@ -59,6 +61,43 @@ public class SistemaControl implements Observable{
     }
     public void cambiosRealizados(){
         this.notificarObservadores();
+    }
+    
+    //dependiendo de los parametros que entren en la funcion:
+    public void seleccionarPrograma(String programa){
+        switch (programa) {
+            case "estival": 
+                if(estival == null){
+                    estival = new EstivalAuto();
+                }
+                this.setTiempoFiltrado(estival.getTiempoFiltrado());
+                this.setTemperatura(estival.getTemperatura());
+            break;
+            case "invernal": 
+                if(invernal == null){
+                    invernal = new InvernalAuto();
+                }
+                this.setTiempoFiltrado(invernal.getTiempoFiltrado());
+                this.setTemperatura(invernal.getTemperatura());
+            break;
+            case "limpieza": 
+                if(limpieza == null){
+                    limpieza = new LimpiezaAuto();
+                }
+                this.setTiempoFiltrado(limpieza.getTiempoFiltrado());
+                this.setTemperatura(limpieza.getTemperatura());
+            break;
+            default: System.out.println("Programa no existente\n");
+        }
+    }
+    
+    
+    
+    public void setTiempoFiltrado(int tiempo){
+        this.tiempoDeFiltrado = tiempo;
+    }
+    public void setTemperatura(int temperatura){
+        this.temperatura = temperatura;
     }
     
     

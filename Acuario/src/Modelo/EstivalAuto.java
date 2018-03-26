@@ -2,22 +2,20 @@
 package Modelo;
 
 
-public class LimpiezaAuto implements GlobalComportamiento {
-
+public class EstivalAuto implements GlobalComportamiento {
     private static final int TEMPERATURA = 18;
-    private static final int TIEMPO_FILTRADO = 15;
+    private static final int TIEMPO_FILTRADO = 3;
 
-    public LimpiezaAuto() {
-
+    public EstivalAuto() {
+        //vacio
     }
 
     public int getTemperatura() {
         return TEMPERATURA;
     }
 
-    public int getTiempoFiltrado() {
+    public int getTiempoFiltrado(){
         return TIEMPO_FILTRADO;
     }
-
 
 }

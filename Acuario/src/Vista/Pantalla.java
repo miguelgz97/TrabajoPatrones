@@ -43,7 +43,6 @@ public class Pantalla {
             }
             
         }while(entrada1 != 0);
-        ola;
     }
      
      

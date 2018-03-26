@@ -11,27 +11,18 @@ package Modelo;
  */
 public class InvernalAuto implements GlobalComportamiento {
 
- private int temperatura =27;
- private int filtracion= 120;
+    private static final int TEMPERATURA = 23;
+    private static final int TIEMPO_FILTRADO = 3;
 
     public InvernalAuto() {
-        getTemperatura();
-        getFiltracion();
     }
 
     public int getTemperatura() {
-        return temperatura;
+        return TEMPERATURA;
     }
 
-    public void setTemperatura(int temperatura) {
-        this.temperatura = temperatura;
-    }
  
-    public int getFiltracion() {
-        return filtracion;
-    }
-
-    public void setFiltracion(int filtracion) {
-        this.filtracion = filtracion;
+    public int getTiempoFiltrado() {
+        return TIEMPO_FILTRADO;
     }
 }
