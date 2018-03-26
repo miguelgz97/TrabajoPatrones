@@ -22,6 +22,14 @@ public class SistemaControl implements Observable{
     private static final float POTENCIA_CLIMATIZACION = 220;
     private static final boolean VENTILADOR = true;
     private static final String TERMOMETRO = "Termometro vidrio Hang On 6 Blau Aquaristic";
+    private int temperatura;
+    private int tiempoDeFiltrado;
+    
+    GlobalComportamiento invierno = new InvernalAuto();
+    invierno.
+    GlobalComportamiento limpieza = new LimpiezaAuto();
+    GlobalComportamiento verano = new VeranoAuto();
+    
    
     public SistemaControl(Observer acuario){
         this.observadores = new ArrayList();
