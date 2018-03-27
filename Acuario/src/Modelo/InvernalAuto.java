@@ -1,28 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Modelo;
 
-/**
- *
- * @author Miguel
- */
-public class InvernalAuto implements GlobalComportamiento {
 
-    private static final int TEMPERATURA = 23;
+public class InvernalAuto implements GlobalComportamiento {
+    //Ref a instancias de sistemas:
+    private SistemaFiltracion sFiltracion;
+    private SistemaClimatizacion sClima;
+    private SistemaIluminacion sIluminacion;
+    //Atributos concretos del programa:
+    private static final float TEMPERATURA = 23;
+  
+    //private time INIT_ILUMINACION = new time();
+    //private static final DATE FIN_ILUMINACION = ;
+    //private static final Date INIT_FILTRADO = ;
+    //private static final DATE FIN_FILTRADO = ;
+    
     private static final int TIEMPO_FILTRADO = 3;
 
-    public InvernalAuto() {
+    public InvernalAuto(SistemaFiltracion sf, SistemaClimatizacion sc, SistemaIluminacion si) {
+        this.sFiltracion = sf;
+        this.sClima = sc;
+        this.sIluminacion = si;
+        
     }
 
-    public int getTemperatura() {
+    public float getTemperatura() {
         return TEMPERATURA;
     }
 
  
-    public int getTiempoFiltrado() {
+    public float getTiempoFiltrado() {
         return TIEMPO_FILTRADO;
     }
 }

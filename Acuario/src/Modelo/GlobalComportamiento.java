@@ -4,7 +4,7 @@ package Modelo;
 
 public interface GlobalComportamiento {
 
-    public int getTemperatura();
+    public float getTemperatura();
 
-    public int getTiempoFiltrado();
+ 
 }

@@ -12,10 +12,13 @@ public class SistemaControl implements Observable{
     private SistemaIluminacion si;
     private SistemaFiltracion sf;
     private SistemaClimatizacion scl;
-    //Programas
-    GlobalComportamiento invernal;
-    GlobalComportamiento limpieza;
-    GlobalComportamiento estival;
+    //Programa
+    GlobalComportamiento programaActual;
+    
+    private static final int ESTIVAL = 0;
+    private static final int INVERNAL = 1;
+    private static final int LIMPIEZA = 2;
+    //parametros inicializados por defecto
     private static final String TIPO_ILUMINACION = "Lámpara LED";
     private static final float POTENCIA_ILUMINACION = 6000;
     private static final int LUMENES = 17500;
@@ -26,8 +29,7 @@ public class SistemaControl implements Observable{
     private static final float POTENCIA_CLIMATIZACION = 220;
     private static final boolean VENTILADOR = true;
     private static final String TERMOMETRO = "Termometro vidrio Hang On 6 Blau Aquaristic";
-    private int temperatura;
-    private int tiempoDeFiltrado;
+    
     
 
     
@@ -63,42 +65,29 @@ public class SistemaControl implements Observable{
         this.notificarObservadores();
     }
     
-    //dependiendo de los parametros que entren en la funcion:
-    public void seleccionarPrograma(String programa){
+    //dependiendo del parametro que entre en la funcion se seleccionara un programa automatico para el acuario:
+    public void seleccionarPrograma(int programa){
         switch (programa) {
-            case "estival": 
-                if(estival == null){
-                    estival = new EstivalAuto();
+            case ESTIVAL: 
+                if(!(this.programaActual instanceof EstivalAuto)){        
+                    this.programaActual = new EstivalAuto(sf,scl,si);
                 }
-                this.setTiempoFiltrado(estival.getTiempoFiltrado());
-                this.setTemperatura(estival.getTemperatura());
             break;
-            case "invernal": 
-                if(invernal == null){
-                    invernal = new InvernalAuto();
+            case INVERNAL: 
+                if(!(this.programaActual instanceof InvernalAuto)){        
+                    this.programaActual = new InvernalAuto(sf,scl,si);
                 }
-                this.setTiempoFiltrado(invernal.getTiempoFiltrado());
-                this.setTemperatura(invernal.getTemperatura());
             break;
-            case "limpieza": 
-                if(limpieza == null){
-                    limpieza = new LimpiezaAuto();
+            case LIMPIEZA: 
+                if(!(this.programaActual instanceof LimpiezaAuto)){        
+                    this.programaActual = new LimpiezaAuto(sf,scl,si);
                 }
-                this.setTiempoFiltrado(limpieza.getTiempoFiltrado());
-                this.setTemperatura(limpieza.getTemperatura());
             break;
             default: System.out.println("Programa no existente\n");
         }
     }
     
     
-    
-    public void setTiempoFiltrado(int tiempo){
-        this.tiempoDeFiltrado = tiempo;
-    }
-    public void setTemperatura(int temperatura){
-        this.temperatura = temperatura;
-    }
     
     
     @Override
