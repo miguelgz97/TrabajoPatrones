@@ -15,9 +15,9 @@ public class SistemaControl implements Observable{
     //Programa
     GlobalComportamiento programaActual;
     
-    private static final int ESTIVAL = 0;
-    private static final int INVERNAL = 1;
-    private static final int LIMPIEZA = 2;
+    private static final int ESTIVAL = 1;
+    private static final int INVERNAL = 2;
+    private static final int LIMPIEZA = 3;
     //parametros inicializados por defecto
     private static final String TIPO_ILUMINACION = "Lámpara LED";
     private static final float POTENCIA_ILUMINACION = 6000;
@@ -66,7 +66,7 @@ public class SistemaControl implements Observable{
     }
     
     //dependiendo del parametro que entre en la funcion se seleccionara un programa automatico para el acuario:
-    public void seleccionarPrograma(int programa){
+    public void programaAutomatico(int programa){
         switch (programa) {
             case ESTIVAL: 
                 if(!(this.programaActual instanceof EstivalAuto)){        
@@ -75,7 +75,7 @@ public class SistemaControl implements Observable{
             break;
             case INVERNAL: 
                 if(!(this.programaActual instanceof InvernalAuto)){        
-                    this.programaActual = new InvernalAuto(sf,scl,si);
+                    this.programaActual = new InvernalAuto(sf,scl,si);                   
                 }
             break;
             case LIMPIEZA: 
@@ -85,10 +85,15 @@ public class SistemaControl implements Observable{
             break;
             default: System.out.println("Programa no existente\n");
         }
+        this.programaActual.programar();
     }
     
     
-    
+    public void programaManual(boolean i, boolean f, float t){
+        System.out.println("SISTEMA DE CONTROL");//------------------------------
+        this.programaActual = new Manual(sf,scl,si,i,f,t);
+        this.programaActual.programar();
+    }
     
     @Override
     public void addListener(InvalidationListener listener) {

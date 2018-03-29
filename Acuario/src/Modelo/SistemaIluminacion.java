@@ -10,5 +10,5 @@ public class SistemaIluminacion extends SistemaAuxiliar{
         super(tipo, potencia, estado, averia);
         this.lumenes = lumenes;
     }
-    
+   
 }

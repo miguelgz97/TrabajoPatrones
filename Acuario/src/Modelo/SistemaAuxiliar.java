@@ -16,10 +16,17 @@ public abstract class SistemaAuxiliar {
     }
     
     protected void encender(){
-        this.estadoOnOff = true;
+        this.setEstado(true);
     }
     
     protected void apagar(){
-        this.estadoOnOff = false;
+        this.setEstado(false);
+    }
+    
+    public void setEstado(boolean estado){
+        this.estadoOnOff = estado;
+    }
+    public boolean getEstado(){
+        return this.estadoOnOff;
     }
 }

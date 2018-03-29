@@ -78,50 +78,53 @@ public class Pantalla {
 
 
     private void modoSistemaManual(){
-        int modo;
-      
-        System.out.println("     -Seleccione el sistema que desea modificar:\n"
-                                   + "\t1.Sistema de Iluminación.\n\n"
-                                   + "\t2.Sistema de Filtración.\n"
-                                   + "\t3.Sistema de Climatización.\n"
-                                   + "\t0.Volver a menu principal.");
-            modo = (int)IO.readNumber();
-            
-            if(modo == 1){//ILUMINACION
-                  
-                    
-            }else if (modo == 2){//FILTRACION
-                    
-                   
-            }else if (modo == 3){//CLIMATIZACION
-
-            }else if (modo == 0){//VOLVER
-                this.menuPrincipal();
-            }else{//ENTRADA ERRONEA
-                System.out.println("Entrada erronea.");
-                this.modoSistemaManual();
-            }
+        int modo, si,sf;
+        float t;
+        do{
+        System.out.println("Sistema de Iluminación:\n"
+                                   + "\t0.Off.\n"
+                                   + "\t1.On.\n");
+        si = (int)IO.readNumber();
+        }while (si != 0 && si != 1);
+        
+        do{
+        System.out.println("Sistema de Filtración:\n"
+                                   + "\t0.Off.\n"
+                                   + "\t1.On.\n");
+        sf = (int)IO.readNumber();
+        }while (sf != 0 && sf != 1);
+        
+        System.out.println("Sistema de climatización:\n\t-Introducir temperatura acuario:\n");
+        t = (float)IO.readNumber();
+        
+        //convertimos las variables introducidas por teclado en booleanas
+        boolean i, f;
+        if(si == 1){
+            i = true;
+        }else{
+            i = false;
+        }
+        if(sf == 1){
+            f = true;
+        }else{
+            f = false;
+        }
+        ctrl.modoManual(i, f, t);
     }
     
     private void modoSistemaAutomatico(){
-        int modo = 0;
+        int modo;
       
         System.out.println("     -Seleccione el modo de sistema automático que desea activar:\n"
-                                   + "\t1.Periodo invernal.\n"
-                                   + "\t2.Periodo Estival.\n"
-                                   + "\t3.OTRO...\n"
+                                   + "\t1.Periodo Estival.\n"
+                                   + "\t2.Periodo Invernal.\n"
+                                   + "\t3.Limpieza.\n"
                                    + "\t0.Volver a menu principal.");
             modo = (int)IO.readNumber();
             
-            if(modo == 1){//INVERNAL
-                  
-                    
-            }else if (modo == 2){//ESTIVAL
-                    
-                   
-            }else if (modo == 3){//OTRO
-
-            }else if (modo == 0){//VOLVER
+            if(modo == 1 || modo == 2 || modo == 3 ){//INVERNAL
+                ctrl.modoAutomatico(modo);
+            }else if(modo == 0){
                 this.menuPrincipal();
             }else{//ENTRADA ERRONEA
                 System.out.println("Entrada erronea.");

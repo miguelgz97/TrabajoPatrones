@@ -14,6 +14,10 @@ public class SistemaClimatizacion extends SistemaAuxiliar{
         this.termometro = termometro;
     }
     
+    public float getTemperatura(){
+        return this.temperatura;
+    }
+    
     public void setTemperatura(float temperatura){
         this.temperatura = temperatura;
     }
