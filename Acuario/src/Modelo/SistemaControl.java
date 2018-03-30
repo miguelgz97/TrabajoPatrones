@@ -1,10 +1,7 @@
 
 package Modelo;
 
-import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
-import javafx.beans.InvalidationListener;
 
 
 public class SistemaControl extends Observable{
