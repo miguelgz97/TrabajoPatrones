@@ -6,12 +6,15 @@ package Modelo;
 public class Acuario {
   
     private static Acuario instanciaUnica;
-    
+    private float litros;
+    private float ancho;
+    private float fondo;
+    private final FactoriaEcosistema factEco;
     
     private Acuario(){
-        
-      
+        this.factEco = new FactoriaEcosistema();
     }
+    
     //*PATRON SINGLETON
     public static Acuario getInstancia(){
         if ( instanciaUnica == null){
@@ -22,30 +25,11 @@ public class Acuario {
         return instanciaUnica;
     }
     
-    
+    //FACTORIA SIMPLE
     public void añadirSerVivo(String ser){
-        switch(ser){
-            case "pez":
-            //Añadir pez  
-                
-                System.out.println("TRAZA: PEZ\n");//------------------------------
-                
-            break;
-            case "coral":
-                System.out.println("TRAZA: CORAL\n");//------------------------------
-                
-            break;
-            
-            case "planta":
-                System.out.println("TRAZA: PLANTA\n");//------------------------------
-                
-            break;
-            
-            default:
-                System.out.println("Error en filtro vida\n");
-            break;
-            
-        }
+        ElementoEcosistema ele;
+        ele = this.factEco.añadirElemento(ser);
+    
     }
 
 }
