@@ -2,18 +2,20 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Observer;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 
-public class SistemaControl implements Observable{
+
+public class SistemaControl extends Observable{
     
-    private final ArrayList<Observer> observadores;
+    //Programa
+    GlobalComportamiento programaActual;
+    
+  
     private SistemaIluminacion si;
     private SistemaFiltracion sf;
     private SistemaClimatizacion scl;
-    //Programa
-    GlobalComportamiento programaActual;
     
     private static final int ESTIVAL = 1;
     private static final int INVERNAL = 2;
@@ -31,40 +33,15 @@ public class SistemaControl implements Observable{
     private static final String TERMOMETRO = "Termometro vidrio Hang On 6 Blau Aquaristic";
     
     
-
-    
    
-    public SistemaControl(Observer acuario){
-        this.observadores = new ArrayList();
-        //Registramos al acuario como observador
-        this.registrarObservador(acuario);
+    public SistemaControl(){
         this.si = new SistemaIluminacion(TIPO_ILUMINACION,POTENCIA_ILUMINACION,false,false,LUMENES);
         this.sf = new SistemaFiltracion(TIPO_FILTRACION,POTENCIA_FILTRACION,false,false,LH_FILTRACION);
         this.scl = new SistemaClimatizacion(TIPO_CLIMATIZACION,POTENCIA_CLIMATIZACION,false,false,VENTILADOR,TERMOMETRO);
         
     }
     
-    //PATRON OBSERVADOR
-    public void registrarObservador(Observer o){
-        observadores.add(o);
-    }
-    public void borrarObservador(Observer o){
-        int i = observadores.indexOf(o);
-        if(i >= 0){
-            observadores.remove(i);
-        }            
-    }
-    public void notificarObservadores(){
-        for (int i = 0 ; i < observadores.size() ; i++){
-            Observer observador = (Observer) observadores.get(i); 
-           
-            //observador.update(o, i);
-        }
-    }
-    public void cambiosRealizados(){
-        this.notificarObservadores();
-    }
-    
+
     //dependiendo del parametro que entre en la funcion se seleccionara un programa automatico para el acuario:
     public void programaAutomatico(int programa){
         switch (programa) {
@@ -85,24 +62,38 @@ public class SistemaControl implements Observable{
             break;
             default: System.out.println("Programa no existente\n");
         }
+        //Programamos Sistema
         this.programaActual.programar();
+        //Notificamos de cambios a obsevadores
+        this.setChanged();
+        this.notifyObservers();
     }
-    
     
     public void programaManual(boolean i, boolean f, float t){
         System.out.println("SISTEMA DE CONTROL");//------------------------------
         this.programaActual = new Manual(sf,scl,si,i,f,t);
         this.programaActual.programar();
+        //Notificamos cambios a observadores
+        this.setChanged();
+        this.notifyObservers();
     }
     
-    @Override
-    public void addListener(InvalidationListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float getTemperatura(){
+        return this.scl.getTemperatura();
     }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public String getNombreProg(){
+        String programa = "" ;
+        if (this.programaActual instanceof EstivalAuto){
+            programa = "Estival";
+        }else if (this.programaActual instanceof InvernalAuto){
+            programa = "Invernal";
+        }else if (this.programaActual instanceof LimpiezaAuto){
+            programa = "Limpieza";
+        }else if (this.programaActual instanceof Manual){
+            programa = "Manual";
+        }
+        return programa;
     }
     
 }
