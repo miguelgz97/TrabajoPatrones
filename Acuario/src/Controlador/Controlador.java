@@ -2,9 +2,6 @@
 package Controlador;
 import Modelo.Acuario;
 import Modelo.SistemaControl;
-import Vista.Main;
-import java.util.ArrayList;
-
 
 public class Controlador {
     
@@ -17,20 +14,21 @@ public class Controlador {
         
     }
     
-    //public  verEstado(){
-        
-    //}
+    public String verEstado(){
+        String elementos = this.acuario.toString();
+        String estadoSistema = this.sc.toString();
+        String estadoGlobal = estadoSistema + elementos;
+        return estadoGlobal;
+    }
     
     public void añadirElemento(String elemento){
         acuario.añadirSerVivo(elemento);
     }
     
     public void modoManual(boolean si, boolean sf, float temperatura){
-        System.out.println("CONTRL voy a SC");//------------------------------
         this.sc.programaManual(si, sf, temperatura);
     }
     public void modoAutomatico(int modo){
-        System.out.println("CONTRL voy a SC");//------------------------------
         this.sc.programaAutomatico(modo);
     }
     

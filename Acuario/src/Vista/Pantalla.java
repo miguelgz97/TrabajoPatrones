@@ -47,7 +47,8 @@ public class Pantalla {
      
      
     private void verEstadoSistema(){
-        
+        String estado = this.ctrl.verEstado();
+        System.out.println(estado);
     }
     private void añadirElemento(){
         int elemento;

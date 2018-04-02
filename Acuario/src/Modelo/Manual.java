@@ -50,4 +50,9 @@ public class Manual implements GlobalComportamiento{
         }
         System.out.println("Sistema de climatización TEMPERATURA = " +  this.sClima.getTemperatura());
     }
+    
+    @Override
+    public String toString(){
+        return "Modo Manual";
+    }
 }

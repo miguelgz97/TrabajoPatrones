@@ -93,4 +93,17 @@ public class SistemaControl extends Observable{
         return programa;
     }
     
+    
+    @Override
+    public String toString(){
+        String salida = "";
+        if(programaActual != null){    
+            salida = salida + "\nTemperatura: " + String.valueOf(this.scl.getTemperatura()) + "º\n";
+            salida = salida + programaActual.toString();
+            
+        }else{
+            salida = "No hay ningun programa seleccionado actualmente.\n";
+        }
+        return salida;
+    }
 }

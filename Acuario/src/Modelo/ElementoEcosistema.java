@@ -2,6 +2,11 @@
 package Modelo;
 
 
-public class ElementoEcosistema {
+public abstract class ElementoEcosistema {
     
+    protected String nombre;
+    
+    public String getNombre(){
+        return this.nombre;
+    } 
 }
